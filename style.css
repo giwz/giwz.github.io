@@ -1,0 +1,1101 @@
+/* ==========================================================================
+   CSS Variáveis Globais
+   ========================================================================== */
+@font-face {
+  font-family: 'Pangolin';
+  src: url('Pangolin-Regular.ttf') format('truetype');
+}
+
+:root {
+  --primary-color: #ff3366;
+  --text-color: #ffffff;
+  --bg-color: #1a1a1a;
+  
+  --font-main: 'Outfit', sans-serif;
+  --font-hand: 'Pangolin', cursive;
+}
+
+/* ==========================================================================
+   Base e Reset
+   ========================================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-color);
+  font-family: var(--font-main);
+  color: var(--text-color);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   O Contêiner Pai (A Mesa)
+   ========================================================================== */
+.desk-container {
+  position: absolute;
+  top: 51.5%; /* Meio-termo para não cortar o crachá mas também não revelar a borda vazia da imagem de fundo */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
+  /* Truque CSS para fazer o container se comportar como background-size: cover 
+     mantendo a proporção 16:9 perfeita para os elementos absolutos dentro dele */
+  /* Zoom de 102% para garantir que cubra todas as bordas e evite lacunas */
+  width: 102vw;
+  height: calc(102vw * (9/16));
+  min-height: 102vh;
+  min-width: calc(102vh * (16/9));
+  
+  /* Imagem de Fundo (versão WebP: ~380 KB em vez do PNG de 10 MB) */
+  background-image: url('assets/web/FUNDO.webp');
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   Base dos Itens Absolutos
+   ========================================================================== */
+.item-wrapper {
+  position: absolute;
+  z-index: 10;
+  text-decoration: none;
+}
+
+/* A imagem base de cada wrapper assume 100% da largura do seu container % e dita a altura final */
+.item-wrapper img.base-img, .item-wrapper video {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Para imagens complementares (luz, cabo, sombra) que ficam dentro do mesmo wrapper */
+.item-wrapper .sub-img {
+  position: absolute;
+  height: auto;
+  display: block;
+}
+
+/* ==========================================================================
+   Posicionamentos Específicos e Estritos (%)
+   Calculados rigorosamente dividindo a resolução nativa do PNG pelo fundo 3840x2160
+   NENHUM PIXEL FOI UTILIZADO. APENAS PORCENTAGENS.
+   ========================================================================== */
+
+/* DECORAÇÃO */
+.item-vaso { width: 18.15%; top: 9.01%; left: 1.45%; }
+.item-luminaria { width: 38.04%; top: 3.14%; left: 59.77%; }
+.item-cafe { width: 12.50%; top: 30.51%; left: 59.11%; }
+.item-carta { width: 15.80%; top: 29.80%; left: 73.85%; }
+
+/* CABOS E CANETAS (Posições independentes ajustadas) */
+.item-cabo { width: 14.50%; top: 58.70%; left: 60.10%; }
+.item-caneta-mesa { width: 5.70%; top: 49.55%; left: 68.08%; }
+.item-caneta-papel { width: 9.20%; top: 65.23%; left: 26.24%; }
+
+/* INTERATIVOS PRINCIPAIS */
+.item-notebook { width: 23.97%; top: 32.03%; left: 37.60%; z-index: 15;} /* Notebook precisa ter z-index maior que o cabo */
+.item-mesa { width: 15.90%; top: 52.36%; left: 72.43%; }
+.item-sketchbook { width: 14.40%; top: 35.48%; left: 21.15%; }
+.item-papel { width: 25.45%; top: 14.78%; left: 37.10%; }
+
+/* O VÍDEO DO CHICO */
+.item-chico { width: 22.92%; top: 48.48%; left: 1.58%; }
+
+/* POSIÇÕES DOS TEXTOS (HOVER E FIXO) */
+.item-notebook .hover-label { --t: 23.43%; --l: 50.63%; --r: 0deg; --s: 1.05; color: #000; }
+.item-carta .hover-label { --t: 72.28%; --l: 45.57%; --r: 10deg; --s: 0.90; color: #000; }
+.item-mesa .hover-label { --t: 46.42%; --l: 50.31%; --r: -22deg; --s: 0.90; }
+.item-sketchbook .hover-label { --t: 32.96%; --l: 45.12%; --r: -18deg; --s: 0.85; }
+.item-chico .hover-label { --t: 20.30%; --l: 54.15%; --r: 0deg; --s: 0.90; color: #000; }
+.item-papel .paper-text { --t: 44.09%; --l: 49.88%; --r: 2deg; --s: 1.00; }
+
+
+/* ==========================================================================
+   Sub-Assets Posicionamentos Relativos a seus Containers
+   ========================================================================== */
+   
+/* Mesa Digital Sub-assets */
+.luz-mesa { width: 100%; top: 0.00%; left: 0.00%; }
+
+/* Notebook Sub-assets */
+.luz-notebook { width: 119%; top: -6.45%; left: -9.19%; }
+
+/* Sketchbook Sub-assets */
+.sketchbook-aberto { width: 100%; top: -8.10%; left: 0.35%; }
+
+/* Chico Sub-assets (Pai/Vídeo: 861x913) */
+/* SOMBRA-CHICO: 922x990 -> 107% do pai */
+.sombra-chico { width: 107%; top: 2%; left: -2%; z-index: -1; }
+
+/* Carta Contato Sub-assets */
+.carta-aberta { width: 92.50%; top: -32.70%; left: 4.74%; }
+
+
+/* ==========================================================================
+   Interações e Hovers
+   ========================================================================== */
+.interactive-item {
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.interactive-item:hover {
+  z-index: 50; /* Traz para frente ao interagir */
+  transform: scale(1.02);
+}
+
+/* Os sub-itens de hover (luzes, canetas, textos) aparecem sutilmente */
+.hover-show {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.interactive-item:hover .hover-show {
+  opacity: 1;
+}
+
+/* Transição para sumir a imagem base quando necessário (ex: Sketchbook) */
+.fade-on-hover {
+  transition: opacity 0.3s ease;
+}
+.interactive-item:hover .fade-on-hover {
+  opacity: 0;
+}
+
+/* (Removido o scale individual das imagens para evitar desalinhamento de eixo) */
+
+/* Garante que os sub-assets como sombra e luzes acompanhem o zoom ou fiquem corretos, caso precise:
+   .interactive-item:hover .sub-img também poderia ter zoom se eles saírem do lugar.
+   Mas como estão absolutos em relação ao pai, se dermos o zoom no pai, tudo cresceria junto.
+   Porém o base-img e sub-img são irmãos. Então vamos dar zoom no pai: */
+
+/* ==========================================================================
+   Line Boil Effect (Textos Flutuantes)
+   ========================================================================== */
+.svg-filters {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+.hover-label {
+  position: absolute;
+  top: var(--t, 50%); 
+  left: var(--l, 50%);
+  transform: translate(-50%, -50%) rotate(var(--r, 0deg)) scale(var(--s, 1));
+  opacity: 0;
+  color: #fff;
+  font-family: var(--font-hand);
+  font-size: 2.5rem;
+  font-weight: bold;
+  white-space: nowrap;
+  pointer-events: none;
+  text-shadow: none;
+  transition: opacity 0.2s ease;
+  z-index: 60;
+}
+
+.interactive-item:hover .hover-label {
+  opacity: 1;
+}
+
+/* Texto da Folha Quadriculada */
+.paper-text {
+  position: absolute;
+  top: var(--t, 50%);
+  left: var(--l, 50%);
+  transform: translate(-50%, -50%) rotate(var(--r, 0deg)) scale(var(--s, 1));
+  text-align: center;
+  font-family: var(--font-main);
+  text-shadow: none;
+  color: #333;
+  font-size: 1.2rem;
+  pointer-events: none;
+  z-index: 50;
+}
+
+.paper-text .name {
+  font-family: var(--font-hand);
+  font-size: 2rem;
+  color: #000;
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   Animação Boil Tremida (Frame a Frame)
+   ========================================================================== */
+@keyframes boil-anim {
+  0%   { filter: url(#line-boil);   transform: rotate(-1deg) scale(1.02); }
+  33%  { filter: url(#line-boil-2); transform: rotate(1deg) scale(0.98); }
+  66%  { filter: url(#line-boil-3); transform: rotate(-0.5deg) scale(1.01); }
+  100% { filter: url(#line-boil);   transform: rotate(0.5deg) scale(1); }
+}
+
+/* Aplicando animação específica pros textos com translateX fixo */
+.boil-text {
+  animation: boil-anim-text 0.4s infinite steps(3);
+  animation-play-state: paused;
+}
+.interactive-item:hover .boil-text {
+  animation-play-state: running;
+}
+
+@keyframes boil-anim-text {
+  0%   { filter: url(#line-boil);   transform: translate(-50%, -50%) rotate(calc(var(--r, 0deg) - 1deg)) scale(calc(var(--s, 1) * 1.02)); }
+  33%  { filter: url(#line-boil-2); transform: translate(-50%, -50%) rotate(calc(var(--r, 0deg) + 1deg)) scale(calc(var(--s, 1) * 0.98)); }
+  66%  { filter: url(#line-boil-3); transform: translate(-50%, -50%) rotate(calc(var(--r, 0deg) - 0.5deg)) scale(calc(var(--s, 1) * 1.01)); }
+  100% { filter: url(#line-boil);   transform: translate(-50%, -50%) rotate(calc(var(--r, 0deg) + 0.5deg)) scale(calc(var(--s, 1) * 1)); }
+}
+
+@keyframes boil-anim-text-mild {
+  0%   { filter: url(#line-boil);   transform: translate(-50%, -50%) rotate(calc(var(--r, 0deg) - 0.2deg)) scale(calc(var(--s, 1) * 1.005)); }
+  33%  { filter: url(#line-boil-2); transform: translate(-50%, -50%) rotate(calc(var(--r, 0deg) + 0.2deg)) scale(calc(var(--s, 1) * 0.995)); }
+  66%  { filter: url(#line-boil-3); transform: translate(-50%, -50%) rotate(calc(var(--r, 0deg) - 0.1deg)) scale(calc(var(--s, 1) * 1.002)); }
+  100% { filter: url(#line-boil);   transform: translate(-50%, -50%) rotate(calc(var(--r, 0deg) + 0.1deg)) scale(calc(var(--s, 1) * 1)); }
+}
+
+/* Específico para o texto do Papel (Mais Suave) */
+.item-papel .boil-text {
+  animation: boil-anim-text-mild 0.7s infinite steps(3);
+  animation-play-state: running;
+}
+.interactive-item:hover .item-papel .boil-text {
+  animation-play-state: running;
+}
+
+@keyframes boil-filter-only {
+  0%   { filter: url(#line-boil); }
+  33%  { filter: url(#line-boil-2); }
+  66%  { filter: url(#line-boil-3); }
+  100% { filter: url(#line-boil); }
+}
+
+/* ==========================================================================
+   Modais (Navegação)
+   ========================================================================== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.modal-overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.modal-window {
+  background-color: #f4ecd8; /* Papel amarelado estilo sketchbook/carta */
+  color: #333;
+  width: 90%;
+  max-width: 800px;
+  max-height: 85vh;
+  border-radius: 12px;
+  padding: 40px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), inset 0 0 20px rgba(200, 180, 140, 0.2);
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden; /* Esconder scrollbar horizontal caso a galeria vaze */
+  transform: scale(1);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100" height="100" filter="url(%23noise)" opacity="0.05"/></svg>'); /* Leve textura de ruído/papel */
+  
+  /* Ocultar barra de rolagem mas manter o scroll */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.modal-window::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+/* Esconder os modais inativos DENTRO do overlay */
+.modal-window.hidden {
+  display: none;
+  transform: scale(0.9);
+}
+
+.close-modal {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+  transition: transform 0.2s;
+  font-family: var(--font-main);
+}
+
+.close-modal:hover {
+  transform: scale(1.1) rotate(90deg);
+  color: var(--primary-color);
+}
+
+.modal-content h2 {
+  font-family: var(--font-hand);
+  font-size: 3rem;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  animation: boil-filter-only 0.4s infinite steps(3);
+  will-change: filter;
+  transform: translateZ(0);
+}
+
+.modal-content p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   Estilos da Seção Projetos (Behance Card)
+   ========================================================================== */
+.text-center {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.behance-card {
+  background-color: rgba(255, 255, 255, 0.4);
+  border: 2px dashed rgba(0, 0, 0, 0.15);
+  border-radius: 16px;
+  padding: 30px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  width: 100%;
+  max-width: 500px;
+}
+
+.behance-card:hover {
+  transform: translateY(-5px);
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+.behance-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.profile-pic {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+  box-shadow: 0 5px 15px rgba(255, 51, 102, 0.3);
+}
+
+.behance-info h3 {
+  font-family: var(--font-hand);
+  font-size: 1.8rem;
+  margin-bottom: 5px;
+}
+
+.behance-info p {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 0;
+}
+
+.behance-desc {
+  font-size: 1.1rem;
+  margin-bottom: 25px;
+  color: #333;
+}
+
+.behance-btn {
+  display: inline-block;
+  background-color: #0057ff; /* Behance Blue */
+  color: #fff;
+  font-family: var(--font-main);
+  font-weight: bold;
+  font-size: 1.1rem;
+  text-decoration: none;
+  padding: 12px 28px;
+  border-radius: 30px;
+  box-shadow: 0 4px 15px rgba(0, 87, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.behance-btn:hover {
+  background-color: #0045cc;
+  box-shadow: 0 6px 20px rgba(0, 87, 255, 0.4);
+  transform: scale(1.05);
+}
+
+/* --- Barra de progresso de rolagem (topo da tela) --- */
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: 1600;
+  background: rgba(26, 26, 26, 0.08);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+#scroll-progress.is-visible {
+  opacity: 1;
+}
+
+#scroll-progress span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: #8b2a32;
+  transform-origin: left center;
+  transform: scaleX(0);
+  will-change: transform;
+}
+
+/* Desktop: em pé, por dentro da lateral da janela aberta (top/left/height vêm do script.js) */
+#scroll-progress.is-vertical {
+  right: auto;
+  width: 4px;
+  border-radius: 4px;
+  background: rgba(58, 44, 34, 0.1);
+}
+
+#scroll-progress.is-vertical span {
+  border-radius: inherit;
+  transform-origin: center top;
+}
+
+/* --- Galeria Horizontal GSAP --- */
+.horiz-gallery-wrapper {
+  position: relative;
+  width: 100%;
+  height: 300000px; /* Cria espaço de rolagem gigante para o scroll infinito */
+  /* Remove overflow: hidden para permitir o position: sticky dos filhos */
+}
+
+.horiz-gallery-sticky {
+  position: sticky;
+  top: 40px; /* Margem do topo ao pinar no modal */
+  overflow: hidden; /* Esconde perfeitamente qualquer imagem vazando para a esquerda/direita */
+  width: 100%;
+}
+
+.horiz-gallery-strip {
+  display: flex;
+  flex-wrap: nowrap;
+  will-change: transform;
+  position: relative;
+  /* Largura vai ser definida pelo conteúdo flex */
+}
+
+.project-wrap {
+  height: 65vh;
+  padding: 0 15px; /* Reduz espaçamento, deixa mais perto */
+  box-sizing: border-box;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.project-wrap img {
+  height: 100%;
+  width: auto; /* Mantém a proporção original da imagem */
+  object-fit: contain;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* --- Galeria Bento (Desktop) ---------------------------------------------
+   Montada pelo script.js a partir das artes da faixa. Em repouso, cada bloco
+   tem a largura proporcional à arte (--a) e cada linha a altura proporcional
+   (--g). Ao passar o mouse, a linha e o bloco crescem e os vizinhos se ajustam.
+   Clique abre a arte em tela cheia (lightbox). */
+.tip-mobile {
+  display: none;
+}
+
+.bento-gallery {
+  --bento-gap: 10px;
+  --bento-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  display: flex;
+  flex-direction: column;
+  gap: var(--bento-gap);
+  width: 100%;
+  aspect-ratio: var(--bento-ratio, 1);
+  margin-top: 18px;
+}
+
+.bento-row {
+  display: flex;
+  gap: var(--bento-gap);
+  flex: var(--g, 1) 1 0;
+  min-height: 0;
+  transition: flex-grow 0.6s var(--bento-ease);
+}
+
+.bento-tile {
+  position: relative;
+  flex: var(--a, 1) 1 0;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #e6dbc3;
+  cursor: zoom-in;
+  transition: flex-grow 0.6s var(--bento-ease), opacity 0.35s ease;
+}
+
+.bento-tile img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+/* Linha e bloco em foco crescem; os outros se encolhem para abrir espaço */
+.bento-row:has(.bento-tile:hover),
+.bento-row:has(.bento-tile:focus-visible) {
+  flex-grow: calc(var(--g, 1) * 1.8);
+}
+
+.bento-tile:hover,
+.bento-tile:focus-visible {
+  flex-grow: calc(var(--a, 1) * 2.4);
+}
+
+.bento-gallery:has(.bento-tile:hover) .bento-tile:not(:hover) {
+  opacity: 0.72;
+}
+
+.bento-tile:focus-visible {
+  outline: 3px solid #8b2a32;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bento-row,
+  .bento-tile {
+    transition: none;
+  }
+}
+
+/* Modal de Ilustrações mais largo no desktop para a grade respirar */
+@media (orientation: landscape) {
+  #modal-ilustracoes {
+    width: 92%;
+    max-width: 1180px;
+  }
+}
+
+/* --- Seção de Contato --- */
+.contact-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  margin-top: 0;
+}
+
+@media (min-width: 768px) {
+  .contact-container {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+  }
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background: rgba(255,255,255,0.4);
+  padding: 20px;
+  border-radius: 12px;
+  border: 2px dashed rgba(0,0,0,0.15);
+  width: 100%;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 8px;
+  font-family: sans-serif;
+  background: rgba(255, 255, 255, 0.9);
+  font-size: 1rem;
+}
+
+.contact-form textarea {
+  resize: vertical;
+}
+
+.submit-btn {
+  background-color: rgba(139, 42, 50, 0.1);
+  color: #8b2a32;
+  border: none;
+  padding: 12px;
+  border-radius: 30px;
+  font-family: var(--font-hand);
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.submit-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(139, 42, 50, 0.2);
+}
+
+.form-status {
+  text-align: center;
+  font-family: var(--font-hand);
+  font-size: 1.2rem;
+  line-height: 1.3;
+  color: #8b2a32;
+}
+
+.form-status.is-error {
+  color: #b3261e;
+}
+
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.social-badges-container {
+  width: 100%;
+  max-width: 280px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.social-badges-container h3 {
+  font-family: var(--font-hand);
+  text-align: left;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.social-badges {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+}
+
+.social-badge {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  width: 100%;
+  position: relative;
+  transition: transform 0.2s ease;
+}
+
+.social-badge:hover {
+  transform: scale(1.05) translateX(5px);
+}
+
+.social-badge.no-hover:hover {
+  transform: none;
+}
+
+.social-icon {
+  width: 45px;
+  height: 45px;
+  object-fit: cover;
+  border-radius: 10px;
+  z-index: 2;
+  box-shadow: 2px 4px 10px rgba(0,0,0,0.2);
+  animation: boil-filter-only 0.7s infinite steps(3);
+}
+
+.social-text {
+  background-color: white;
+  color: #333;
+  font-family: var(--font-hand);
+  font-size: 1.1rem;
+  padding: 6px 15px 6px 20px; 
+  border-radius: 0 10px 10px 0;
+  margin-left: -12px; 
+  flex-grow: 1;
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  transition: color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.social-badge:hover:not(.no-hover) .social-text {
+  color: #0055ff;
+  text-decoration: underline;
+}
+
+/* --- Lightbox Modal --- */
+#lightbox {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 2000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+#lightbox.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#lightbox-img {
+  max-width: 90%;
+  max-height: 90%;
+  border: 12px solid #f4ecd8; /* Borda amarelada de sketchbook/papel */
+  border-radius: 4px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+  object-fit: contain;
+  transition: opacity 0.25s ease;
+}
+
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 56px;
+  height: 56px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(244, 236, 216, 0.14);
+  color: #f4ecd8;
+  font-size: 2.4rem;
+  line-height: 1;
+  font-family: sans-serif;
+  cursor: pointer;
+  z-index: 2001;
+  transition: background 0.2s;
+}
+
+.lightbox-nav:hover {
+  background: rgba(244, 236, 216, 0.3);
+}
+
+.lightbox-prev {
+  left: 24px;
+}
+
+.lightbox-next {
+  right: 24px;
+}
+
+.lightbox-counter {
+  position: absolute;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #f4ecd8;
+  font-family: var(--font-hand);
+  font-size: 1.1rem;
+  z-index: 2001;
+}
+
+.close-lightbox {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  background: none;
+  border: none;
+  color: #f4ecd8;
+  font-size: 3.5rem;
+  cursor: pointer;
+  z-index: 2001;
+  transition: transform 0.2s;
+  font-family: sans-serif;
+}
+
+.close-lightbox:hover {
+  transform: scale(1.2);
+}
+
+/* ==========================================================================
+   Estilos do Modal Sobre Mim
+   ========================================================================== */
+#modal-sobre-mim {
+  --text-main: #4a3b32;
+  --accent-red: var(--primary-color);
+  --accent-green: #9eb28f;
+  --accent-yellow: #e8d59e;
+  --accent-blue: #a3c4d1;
+  --polaroid-bg: #fcfbf9;
+  --tape-color: rgba(230, 218, 195, 0.9);
+}
+
+#modal-sobre-mim h3.secao-titulo-sm, #modal-sobre-mim h3.secao-titulo {
+  font-family: var(--font-hand);
+  color: #8b2a32;
+  font-size: 2.2rem;
+  margin-bottom: 20px;
+  text-align: center;
+  will-change: filter;
+  transform: translateZ(0);
+}
+
+#modal-sobre-mim .secao-margem {
+  margin-bottom: 80px;
+  padding-top: 60px;
+}
+
+/* Quem é Giwz */
+.sobre-container {
+  margin-bottom: 100px;
+}
+
+.perfil-foto-flutuante {
+  float: right;
+  width: 200px;
+  margin: -40px -40px 30px 40px;
+  transform: rotate(4deg);
+  position: relative;
+  z-index: 10;
+}
+
+.perfil-foto-flutuante img {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 10px solid var(--polaroid-bg);
+  border-bottom: 30px solid var(--polaroid-bg);
+  box-shadow: 4px 6px 15px rgba(0,0,0,0.15);
+}
+
+.sobre-texto {
+  width: 100%;
+  padding: 30px;
+  background-color: rgba(255, 255, 255, 0.6);
+  border: 2px dashed rgba(0,0,0,0.15);
+  border-radius: 10px;
+}
+
+.sobre-texto p {
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+  color: var(--text-main);
+}
+#modal-sobre-mim .sobre-texto h3.secao-titulo-sm {
+  text-align: left;
+  margin-bottom: 25px;
+  border-bottom: none;
+}
+
+/* Fita Adesiva */
+.tape {
+  position: absolute;
+  width: 100px;
+  height: 30px;
+  background-color: rgba(230, 218, 195, 0.9);
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-3deg);
+  z-index: 5;
+  background-image: linear-gradient(90deg, transparent 50%, rgba(255,255,255,0.3) 50%);
+  background-size: 4px 100%;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Gostos x Não Gostos */
+.gostos-wrapper {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  margin-bottom: 60px;
+  flex-wrap: wrap;
+}
+
+.gostos-lado {
+  flex: 1;
+  min-width: 280px;
+  padding: 30px;
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.6);
+  border: 2px dashed rgba(0,0,0,0.15);
+  border-radius: 10px;
+}
+
+.gostos-lado h3.secao-titulo-sm {
+  border-bottom: none;
+  display: inline-block;
+  margin-bottom: 15px;
+}
+
+.gostos-lado ul {
+  list-style: none;
+  padding-left: 10px;
+}
+
+.gostos-lado li {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  color: var(--text-main);
+  position: relative;
+  padding-left: 20px;
+}
+
+.gostos-lado li::before {
+  content: '• ';
+  color: var(--accent-red);
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.doodle-gostos {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  z-index: 5;
+  filter: drop-shadow(2px 3px 5px rgba(0,0,0,0.15));
+}
+
+/* Grids e Cards */
+.grid-padrao {
+  display: grid;
+  gap: 25px;
+  padding: 10px 0;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.card-base {
+  background-color: var(--polaroid-bg);
+  padding: 15px;
+  box-shadow: 3px 6px 15px rgba(0,0,0,0.1);
+  position: relative;
+  text-align: center;
+  border-radius: 4px;
+}
+
+.album-card {
+  padding: 20px;
+  transition: transform 0.3s;
+}
+
+
+.album-card img {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border: 4px solid rgba(0,0,0,0.05);
+  margin-bottom: 15px;
+}
+
+.album-card h4 {
+  font-size: 1.2rem;
+  font-family: var(--font-main);
+  color: var(--text-main);
+  margin-bottom: 5px;
+}
+.album-card p {
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+/* Hobbies */
+.hobby-card {
+  border: 1px dashed rgba(0,0,0,0.2);
+  border-radius: 12px;
+  padding: 25px 20px;
+  transition: transform 0.3s;
+}
+
+
+.hobby-card h4 {
+  font-family: var(--font-hand);
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 10px;
+  margin-top: 5px;
+}
+
+.hobby-card p {
+  font-size: 1rem;
+  color: rgba(0,0,0,0.8);
+  line-height: 1.5;
+}
+
+/* Estilos do Modal Fun Facts */
+#modal-fun-facts .card-base p {
+  text-align: left;
+}
+
+.adesivo-decor {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+  z-index: 5;
+  filter: hue-rotate(var(--hue, 0deg)) drop-shadow(2px 3px 5px rgba(0,0,0,0.15));
+  transform: rotate(var(--rot, 0deg));
+}
+
+/* Wrapper da abertura mobile: no desktop não interfere no layout */
+.mobile-hero {
+  display: contents;
+}
+
+.mobile-intro,
+.hero-marquee,
+#mobile-dock,
+.section-object {
+  display: none;
+}
+
+
+/* ==========================================================================
+   Fallback para Tablets e Dispositivos Touch em Modo Desktop (Paisagem)
+   ========================================================================== */
+@media (hover: none) and (orientation: landscape) {
+  .interactive-item .hover-label {
+    opacity: 0.92;
+  }
+}
+
+
+

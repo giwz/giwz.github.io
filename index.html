@@ -1,1 +1,485 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Giovanna Marcon - portfolio">
+  <link rel="icon" type="image/png" href="assets/web/favicon.png">
+  <link rel="apple-touch-icon" href="assets/web/apple-touch-icon.png">
+
+  <!-- Pré-visualização ao compartilhar o link (WhatsApp, Instagram, LinkedIn...) -->
+  <meta property="og:title" content="Giovanna Marcon - portfolio">
+  <meta property="og:description" content="Giovanna Marcon - portfolio">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Giovanna Marcon">
+  <meta property="og:locale" content="pt_BR">
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- og:url e og:image precisam da URL final do site (absoluta). Quando tiver, descomente e preencha:
+  <meta property="og:url" content="https://SEU-DOMINIO/">
+  <meta property="og:image" content="https://SEU-DOMINIO/assets/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Giovanna Marcon - portfolio">
+  -->
+
+  <title>Giovanna Marcon | Designer Digital e Ilustradora</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="mobile.css" media="(orientation: portrait)">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&family=Permanent+Marker&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- BARRA DE PROGRESSO DE ROLAGEM (topo da tela, atualizada pelo script.js) -->
+  <div id="scroll-progress" aria-hidden="true"><span></span></div>
+
+  <!-- DOCK FLUTUANTE MOBILE (aparece ao subir o scroll, oculta ao descer) -->
+  <nav id="mobile-dock" aria-label="Navegação rápida">
+    <a href="#modal-sobre-mim" class="dock-link" data-target="modal-sobre-mim">
+      <img src="assets/web/SKETCHBOOK.webp" alt="">
+      <span>Sobre mim</span>
+    </a>
+    <a href="#modal-projetos" class="dock-link" data-target="modal-projetos">
+      <img src="assets/web/NOTEBOOK.webp" alt="">
+      <span>Projetos</span>
+    </a>
+    <a href="#modal-ilustracoes" class="dock-link" data-target="modal-ilustracoes">
+      <img src="assets/web/MESA-DIGITAL.webp" alt="">
+      <span>Ilustrações</span>
+    </a>
+    <a href="#modal-contato" class="dock-link" data-target="modal-contato">
+      <img src="assets/web/CARTA-CONTATO.webp" alt="">
+      <span>Contato</span>
+    </a>
+  </nav>
+
+  <!-- SVG Filters for Line Boil Effect -->
+  <svg width="0" height="0" class="svg-filters" aria-hidden="true">
+    <defs>
+      <filter id="line-boil" x="-20%" y="-20%" width="140%" height="140%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="3" result="noise" />
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="4" xChannelSelector="R" yChannelSelector="G" />
+      </filter>
+      <filter id="line-boil-2" x="-20%" y="-20%" width="140%" height="140%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.045" numOctaves="3" result="noise" seed="2" />
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="5" xChannelSelector="R" yChannelSelector="G" />
+      </filter>
+      <filter id="line-boil-3" x="-20%" y="-20%" width="140%" height="140%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="3" result="noise" seed="3" />
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" xChannelSelector="R" yChannelSelector="G" />
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- ABERTURA: no celular, texto + mesa formam um bloco só (no desktop o wrapper é "display: contents") -->
+  <div class="mobile-hero">
+
+  <!-- Faixa de artes horizontais passando sem parar (só no celular; o script.js duplica as imagens para o loop) -->
+  <div class="hero-marquee" aria-hidden="true">
+    <div class="hero-marquee-track">
+      <img src="desenhos/web/hero/TOKYO.webp" style="--a: 1.77" alt="">
+      <img src="desenhos/web/hero/MARIO%20UNDERWATER.webp" style="--a: 1.48" alt="">
+      <img src="desenhos/web/hero/ROSALINAMK.webp" style="--a: 1.5" alt="">
+      <img src="desenhos/web/hero/CASAMENTO.webp" style="--a: 1.78" alt="">
+      <img src="desenhos/web/hero/QUARTO1.webp" style="--a: 1.68" alt="">
+      <img src="desenhos/web/hero/EKKO%20E%20POWDER.webp" style="--a: 1.33" alt="">
+      <img src="desenhos/web/hero/PERSONAGENS.webp" style="--a: 1.78" alt="">
+      <img src="desenhos/web/hero/THI%20E%20GI.webp" style="--a: 1.44" alt="">
+      <img src="desenhos/web/hero/QUARTO%20DOS%20SONHOS.webp" style="--a: 1.33" alt="">
+    </div>
+  </div>
+
+  <section class="mobile-intro">
+    <h1 class="name">GIOVANNA MARCON</h1>
+    <h2 class="role">Designer Digital e Ilustradora</h2>
+    <p class="welcome">Olá, seja bem-vindo(a)!</p>
+  </section>
+
+
+  <!-- O CONTÊINER PAI (A MESA) -->
+  <main class="desk-container">
+
+    <!-- ELEMENTOS DECORATIVOS -->
+    <div class="item-wrapper item-vaso">
+      <img src="assets/web/VASO.webp" alt="Vaso" class="base-img">
+    </div>
+
+    <div class="item-wrapper item-luminaria" style="pointer-events: none;">
+      <img src="assets/web/LUMINÁRIA.webp" alt="Luminária" class="base-img">
+    </div>
+
+    <!-- Cabo Mesa Digital (Posicionado antes do Notebook para ficar atrás dele) -->
+    <div class="item-wrapper item-cabo">
+      <img src="assets/web/CABO-MESA-DIGITAL.webp" alt="Cabo" class="base-img">
+    </div>
+
+    <div class="item-wrapper item-cafe">
+      <img src="assets/web/CAFÉ.webp" alt="Café" class="base-img">
+    </div>
+
+    <!-- Carta (Contato) -->
+    <a href="#contato" class="item-wrapper item-carta interactive-item">
+      <img src="assets/web/CARTA-CONTATO.webp" alt="Carta Contato" class="base-img fade-on-hover">
+      <img src="assets/web/CARTA CONTTATO ABERTA.webp" alt="" class="sub-img carta-aberta hover-show">
+      <span class="hover-label boil-text">Contato</span>
+    </a>
+
+
+    <!-- ==============================================
+         ELEMENTOS INTERATIVOS PRINCIPAIS
+         ============================================== -->
+
+    <!-- Computador (Projetos) -->
+    <a href="#projetos" class="item-wrapper item-notebook interactive-item">
+      <img src="assets/web/NOTEBOOK.webp" alt="Computador - Projetos" class="base-img">
+      <img src="assets/web/NOTEBOOK LIGADO.webp" alt="" class="sub-img luz-notebook hover-show">
+      <span class="hover-label boil-text">Projetos</span>
+    </a>
+
+    <!-- Mesa Digital (Ilustrações) -->
+    <a href="#ilustracoes" class="item-wrapper item-mesa interactive-item">
+      <!-- Base (Mesa em si) -->
+      <img src="assets/web/MESA-DIGITAL.webp" alt="Mesa Digital - Ilustrações" class="base-img anim-target">
+
+      <!-- LUZ (único sub-asset mantido na mesa) -->
+      <img src="assets/web/LUZ-LIGADA---MESA-DIGITAL.webp" alt="" class="sub-img luz-mesa anim-target hover-show">
+
+      <span class="hover-label boil-text">Ilustrações</span>
+    </a>
+
+    <!-- Caneta Mesa Digital Independente -->
+    <div class="item-wrapper item-caneta-mesa">
+      <img src="assets/web/CANETA-MESA-DIGITAL.webp" alt="Caneta Mesa" class="base-img">
+    </div>
+
+    <!-- Sketchbook (Sobre Mim) -->
+    <a href="#sobre-mim" class="item-wrapper item-sketchbook interactive-item">
+      <img src="assets/web/SKETCHBOOK.webp" alt="Sketchbook - Sobre mim" class="base-img fade-on-hover">
+      <img src="assets/web/SKETCHBOOK ABERTO.webp" alt="" class="sub-img sketchbook-aberto hover-show">
+      <span class="hover-label boil-text">Sobre mim</span>
+    </a>
+
+    <!-- Folha Quadriculada (Sem link, texto no hover) -->
+    <div class="item-wrapper item-papel interactive-item">
+      <!-- A folha base -->
+      <img src="assets/web/PAPEL.webp" alt="Folha Quadriculada" class="base-img">
+
+      <!-- Texto Especial (Giovanna Marcon) -->
+      <div class="paper-text boil-text">
+        <span class="name">GIOVANNA MARCON</span><br>
+        <span class="role">Designer Digital e Ilustradora</span>
+      </div>
+    </div>
+
+    <!-- Caneta Papel Independente -->
+    <div class="item-wrapper item-caneta-papel">
+      <img src="assets/web/CANETA.webp" alt="Caneta" class="base-img">
+    </div>
+
+    <!-- O Gato Chico (Vídeo -> Fun Facts) -->
+    <a href="#fun-facts" class="item-wrapper item-chico interactive-item">
+      <!-- Sombra atrás do vídeo -->
+      <img src="assets/web/SOMBRA-CHICO.webp" alt="" class="sub-img sombra-chico anim-target">
+
+      <!-- O Vídeo em substituição à imagem estática -->
+      <video loop muted playsinline preload="none" poster="assets/web/CHICO.webp" class="base-img anim-target">
+        <!-- 1º Opção: Chrome, Windows, Android e Firefox vão ler este -->
+        <source src="Chico respirando WINDOWS.webm" type="video/webm">
+        <!-- 2º Opção: Safari, iPhones, iPads e Macs vão ler este -->
+        <source src="Chico respirando SAFARI.mp4" type="video/mp4; codecs=hvc1">
+      </video>
+
+      <span class="hover-label boil-text">Fun Facts</span>
+    </a>
+
+  </main>
+
+  </div>
+
+  <!-- ==============================================
+       MODAIS
+       ============================================== -->
+  <div id="modal-overlay" class="modal-overlay hidden">
+
+    <div id="modal-contato" class="modal-window hidden">
+      <div class="section-object obj-carta" aria-hidden="true">
+        <img src="assets/web/CARTA-CONTATO.webp" alt="" class="base-img fade-on-lit">
+        <img src="assets/web/CARTA CONTTATO ABERTA.webp" alt="" class="sub-img lit-show" style="width: 92.5%; top: -32.7%; left: 4.74%;">
+      </div>
+      <button class="close-modal">&times;</button>
+      <div class="modal-content">
+        <h2>Me envie uma cartinha!</h2>
+        <p style="margin-bottom: 10px; font-size: 1.1rem; opacity: 0.9; text-align: center;">dúvidas, interesse pelo meu
+          trabalho, parcerias, tudo aqui</p>
+
+        <div class="contact-container">
+          <form class="contact-form" action="https://api.web3forms.com/submit" method="POST">
+            <!-- Chave de Acesso Web3Forms -->
+            <input type="hidden" name="access_key" value="4d6a9099-a22b-4afe-9756-e5b1a4ea7f41">
+            <input type="hidden" name="subject" value="Nova cartinha do portfólio">
+            <input type="hidden" name="from_name" value="Portfólio Giovanna Marcon">
+            <!-- Anti-spam do Web3Forms: robôs marcam esta caixa (invisível para pessoas) e a mensagem é descartada -->
+            <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display: none;">
+            
+            <input type="text" name="nome" placeholder="Seu nome" autocomplete="name" required>
+            <input type="email" name="email" placeholder="Seu e-mail" autocomplete="email" inputmode="email" required>
+            <textarea name="mensagem" placeholder="Sua mensagem..." rows="4" required></textarea>
+            <button type="submit" class="submit-btn">Enviar Cartinha 💌</button>
+            <p class="form-status" role="status" aria-live="polite" hidden></p>
+          </form>
+
+          <div class="social-badges-container">
+            <h3>Minhas redes e e-mail para contato</h3>
+            <div class="social-badges">
+              <a href="mailto:gimarcondalcol@gmail.com" class="social-badge" target="_blank">
+                <img src="contato/web/gmail.webp" alt="Gmail" class="social-icon">
+                <span class="social-text">gimarcondalcol@gmail.com</span>
+              </a>
+              <a href="https://www.instagram.com/giwzart" class="social-badge" target="_blank">
+                <img src="contato/web/instagram.webp" alt="Instagram" class="social-icon">
+                <span class="social-text">@giwzart</span>
+              </a>
+              <a href="https://www.linkedin.com/in/giovanna-marcon/" class="social-badge" target="_blank">
+                <img src="contato/web/linkedin.webp" alt="LinkedIn" class="social-icon">
+                <span class="social-text">Giovanna Marcon Dalcol</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="modal-projetos" class="modal-window hidden">
+      <div class="section-object obj-notebook" aria-hidden="true">
+        <img src="assets/web/NOTEBOOK.webp" alt="" class="base-img fade-on-lit">
+        <img src="assets/web/NOTEBOOK LIGADO.webp" alt="" class="sub-img lit-show" style="width: 119%; top: -6.45%; left: -9.19%;">
+      </div>
+      <button class="close-modal">&times;</button>
+      <div class="modal-content text-center">
+        <h2>Projetos</h2>
+        <div class="behance-card">
+          <div class="behance-profile">
+            <img src="imagens/web/FOTO BEHANCE.webp" alt="Giovanna Marcon" class="profile-pic">
+            <div class="behance-info">
+              <h3>Giovanna Marcon</h3>
+              <p>Designer Digital e Ilustradora</p>
+            </div>
+          </div>
+          <p class="behance-desc">Meus projetos e estudos de caso completos estão disponíveis no meu portfólio do
+            Behance!</p>
+          <a href="https://www.behance.net/gimarcon" target="_blank" rel="noopener noreferrer" class="behance-btn">
+            Ver portfólio no Behance
+          </a>
+        </div>
+      </div>
+    </div>
+
+
+    <div id="modal-ilustracoes" class="modal-window hidden">
+      <div class="section-object obj-mesa" aria-hidden="true">
+        <img src="assets/web/MESA-DIGITAL.webp" alt="" class="base-img fade-on-lit">
+        <img src="assets/web/LUZ-LIGADA---MESA-DIGITAL.webp" alt="" class="sub-img lit-show">
+      </div>
+      <button class="close-modal">&times;</button>
+      <div class="modal-content">
+        <h2>Ilustrações</h2>
+        <p style="margin-bottom: 5px; font-size: 1.1rem;">Aqui está um pouco do meu trabalho. Faço principalmente artes
+          digitais e gosto muito de um estilo mais inspirado em tinta acrílica. Algumas artes dessa galeria são antigas,
+          outras mais novas...sinto que estou em constante evolução!</p>
+        <p style="margin-bottom: 20px; font-size: 0.9rem; opacity: 0.8;"><strong>Dica:</strong> <span class="tip-mobile">As artes passam sozinhas. <strong>Toque</strong> em uma delas para ampliá-la e <strong>deslize para o lado</strong> para ver as outras!</span><span class="tip-desktop">Passe o mouse pelas artes para vê-las melhor e <strong>clique</strong> em uma delas para abrir em tela cheia!</span></p>
+
+        <div class="horiz-gallery-wrapper">
+          <div class="horiz-gallery-sticky">
+            <div class="horiz-gallery-strip">
+              <div class="project-wrap"><img src="desenhos/web/MARIO UNDERWATER-1400.webp" srcset="desenhos/web/MARIO%20UNDERWATER-1000.webp 800w, desenhos/web/MARIO%20UNDERWATER-1400.webp 1400w" sizes="(max-width: 900px) 70vw, 55vw" data-full="desenhos/web/MARIO UNDERWATER-2560.webp" alt="Mario Underwater" data-aspect="1.48" loading="lazy" class="art-img"></div>
+              <div class="project-wrap"><img src="desenhos/web/TOKYO-1400.webp" srcset="desenhos/web/TOKYO-1000.webp 800w, desenhos/web/TOKYO-1400.webp 1400w" sizes="(max-width: 900px) 70vw, 55vw" data-full="desenhos/web/TOKYO-2560.webp" alt="Tokyo" data-aspect="1.77" loading="lazy" class="art-img"></div>
+              <div class="project-wrap"><img src="desenhos/web/TOY STORY EXPO-1400.webp" srcset="desenhos/web/TOY%20STORY%20EXPO-1000.webp 800w, desenhos/web/TOY%20STORY%20EXPO-1400.webp 1400w" sizes="(max-width: 900px) 70vw, 55vw" data-full="desenhos/web/TOY STORY EXPO-2560.webp" alt="Toy Story Expo" data-aspect="0.71" loading="lazy" class="art-img"></div>
+              <div class="project-wrap"><img src="desenhos/web/HOPPERS-1400.webp" srcset="desenhos/web/HOPPERS-1000.webp 800w, desenhos/web/HOPPERS-1400.webp 1400w" sizes="(max-width: 900px) 70vw, 55vw" data-full="desenhos/web/HOPPERS-2560.webp" alt="Hoppers" data-aspect="0.75" loading="lazy" class="art-img"></div>
+              <div class="project-wrap"><img src="desenhos/web/PIRATA-1400.webp" srcset="desenhos/web/PIRATA-1000.webp 800w, desenhos/web/PIRATA-1400.webp 1400w" sizes="(max-width: 900px) 70vw, 55vw" data-full="desenhos/web/PIRATA-2560.webp" alt="Pirata" data-aspect="0.71" loading="lazy" class="art-img"></div>
+              <div class="project-wrap"><img src="desenhos/web/ROSALINAMK-1400.webp" srcset="desenhos/web/ROSALINAMK-1000.webp 800w, desenhos/web/ROSALINAMK-1400.webp 1400w" sizes="(max-width: 900px) 70vw, 55vw" data-full="desenhos/web/ROSALINAMK-2560.webp" alt="Rosalina MK" data-aspect="1.5" loading="lazy" class="art-img"></div>
+              <div class="project-wrap"><img src="desenhos/web/EKKO E POWDER-1400.webp" srcset="desenhos/web/EKKO%20E%20POWDER-1000.webp 800w, desenhos/web/EKKO%20E%20POWDER-1400.webp 1400w" sizes="(max-width: 900px) 70vw, 55vw" data-full="desenhos/web/EKKO E POWDER-2560.webp" alt="Ekko e Powder" data-aspect="1.33" loading="lazy" class="art-img"></div>
+              <div class="project-wrap"><img src="desenhos/web/PERSONAGENS-1400.webp" srcset="desenhos/web/PERSONAGENS-1000.webp 800w, desenhos/web/PERSONAGENS-1400.webp 1400w" sizes="(max-width: 900px) 70vw, 55vw" data-full="desenhos/web/PERSONAGENS-2560.webp" alt="Personagens" data-aspect="1.78" loading="lazy" class="art-img"></div>
+              <div class="project-wrap"><img src="desenhos/web/QUARTO DOS SONHOS-1400.webp" srcset="desenhos/web/QUARTO%20DOS%20SONHOS-1000.webp 800w, desenhos/web/QUARTO%20DOS%20SONHOS-1400.webp 1400w" sizes="(max-width: 900px) 70vw, 55vw" data-full="desenhos/web/QUARTO DOS SONHOS-2560.webp" alt="Quarto dos Sonhos" data-aspect="1.33" loading="lazy" class="art-img"></div>
+              <div class="project-wrap"><img src="desenhos/web/SCRAPBOOK-1400.webp" srcset="desenhos/web/SCRAPBOOK-1000.webp 800w, desenhos/web/SCRAPBOOK-1400.webp 1400w" sizes="(max-width: 900px) 70vw, 55vw" data-full="desenhos/web/SCRAPBOOK-2560.webp" alt="Scrapbook" data-aspect="0.8" loading="lazy" class="art-img"></div>
+              <div class="project-wrap"><img src="desenhos/web/CASAMENTO-1400.webp" srcset="desenhos/web/CASAMENTO-1000.webp 800w, desenhos/web/CASAMENTO-1400.webp 1400w" sizes="(max-width: 900px) 70vw, 55vw" data-full="desenhos/web/CASAMENTO-2560.webp" alt="Casamento" data-aspect="1.78" loading="lazy" class="art-img"></div>
+              <div class="project-wrap"><img src="desenhos/web/TOTORO-1400.webp" srcset="desenhos/web/TOTORO-1000.webp 800w, desenhos/web/TOTORO-1400.webp 1400w" sizes="(max-width: 900px) 70vw, 55vw" data-full="desenhos/web/TOTORO-2560.webp" alt="Totoro" data-aspect="0.8" loading="lazy" class="art-img"></div>
+              <div class="project-wrap"><img src="desenhos/web/QUARTO1-1400.webp" srcset="desenhos/web/QUARTO1-1000.webp 800w, desenhos/web/QUARTO1-1400.webp 1400w" sizes="(max-width: 900px) 70vw, 55vw" data-full="desenhos/web/QUARTO1-2560.webp" alt="Quarto 1" data-aspect="1.68" loading="lazy" class="art-img"></div>
+              <div class="project-wrap"><img src="desenhos/web/THI E GI-1400.webp" srcset="desenhos/web/THI%20E%20GI-1000.webp 800w, desenhos/web/THI%20E%20GI-1400.webp 1400w" sizes="(max-width: 900px) 70vw, 55vw" data-full="desenhos/web/THI E GI-2560.webp" alt="Thi e Gi" data-aspect="1.44" loading="lazy" class="art-img"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="modal-sobre-mim" class="modal-window hidden">
+      <div class="section-object obj-sketchbook" aria-hidden="true">
+        <img src="assets/web/SKETCHBOOK.webp" alt="" class="base-img fade-on-lit">
+        <img src="assets/web/SKETCHBOOK ABERTO.webp" alt="" class="sub-img lit-show" style="width: 100%; top: -8.1%; left: 0.35%;">
+      </div>
+      <button class="close-modal">&times;</button>
+      <div class="modal-content">
+        <h2>Sobre Mim</h2>
+        
+        <!-- Quem é Giwz -->
+        <section class="sobre-container">
+            <div class="sobre-texto">
+                <div class="perfil-foto-flutuante">
+                    <img src="sites html/IMAGENS/SOBRE MIM/web/PERFIL.webp" alt="MUITO EU">
+                </div>
+                <h3 class="secao-titulo-sm">Quem sou eu</h3>
+                <p>Oie! Meu nome é Giovanna, tenho 21 anos e sou estudante de graduação em Design Digital na FACAMP, com foco em UI/UX e interesse em explorar outras áreas, como Motion Design e Web Design.</p>
+                <p>Também sou ilustradora digital e fiz dois cursos de desenho na Pandora Escola de Arte. Desenhar faz parte da minha vida desde criança e é uma das coisas mais importantes para mim, tanto como forma de expressão quanto como parte da minha trajetória criativa.</p>
+                <p>Em 2026, estou tendo a oportunidade de realizar um intercâmbio de seis meses em Utrecht, nos Países Baixos, onde estudo Brand Design e amplio meus conhecimentos sobre identidade visual e design de marcas.</p>
+            </div>
+        </section>
+
+        <!-- Gostos x Não Gostos -->
+        <section class="gostos-wrapper">
+            <div class="gostos-lado" style="transform: rotate(-1deg);">
+                <img src="sites html/IMAGENS/GOSTO X NÃO GOSTO/web/GIWZGOSTO.webp" alt="Gosto" class="doodle-gostos" style="top: -55px; right: 0;">
+                <h3 class="secao-titulo-sm">Gosto</h3>
+                <ul>
+                    <li>Dias chuvosos</li>
+                    <li>Frappuccino</li>
+                    <li>Desenhos animados (filmes e séries)</li>
+                    <li>Animais</li>
+                    <li>Delineados gráficos (maquiagem)</li>
+                    <li>Camiseta de banda de rock</li>
+                    <li>Coca Cola ZERO geladinha</li>
+                    <li>Pintar o cabelo</li>
+                    <li>Tirar fotos</li>
+                    <li>Ouvir música sempre que dá</li>
+                </ul>
+            </div>
+            <div class="gostos-lado" style="transform: rotate(1deg);">
+                <img src="sites html/IMAGENS/GOSTO X NÃO GOSTO/web/GIWZNÃOGOSTO.webp" alt="Não Gosto" class="doodle-gostos" style="top: -55px; left: 0;">
+                <h3 class="secao-titulo-sm">Não Gosto</h3>
+                <ul>
+                    <li>Acordar muito cedo</li>
+                    <li>Interfaces mal organizadas</li>
+                    <li>Dias muito quentes</li>
+                    <li>Rinite alérgica</li>
+                    <li>Quando proporção de desenho não funciona e eu não sei por quê</li>
+                    <li>Ligar para 0800</li>
+                    <li>Cabelo rebelde</li>
+                    <li>Enrolação</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Álbuns -->
+        <section class="secao-margem">
+            <h3 class="secao-titulo">Meus Álbuns Favoritos</h3>
+            <div class="grid-padrao">
+                <div class="card-base album-card">
+                    <div class="tape"></div>
+                    <img src="sites html/IMAGENS/ÁLBUNS FAVORITOS/web/ALBUM1.webp" alt="Álbum 1">
+                    <h4>The Dark Side of the Moon</h4><p>Pink Floyd</p>
+                </div>
+                <div class="card-base album-card">
+                    <div class="tape" style="transform: rotate(10deg);"></div>
+                    <img src="sites html/IMAGENS/ÁLBUNS FAVORITOS/web/ALBUM2.webp" alt="Álbum 2">
+                    <h4>Gemini Rights</h4><p>Steve Lacy</p>
+                </div>
+                <div class="card-base album-card">
+                    <div class="tape" style="transform: rotate(-5deg);"></div>
+                    <img src="sites html/IMAGENS/ÁLBUNS FAVORITOS/web/ALBUM3.webp" alt="Álbum 3">
+                    <h4>Harry's House</h4><p>Harry Styles</p>
+                </div>
+                <div class="card-base album-card">
+                    <div class="tape" style="transform: rotate(8deg);"></div>
+                    <img src="sites html/IMAGENS/ÁLBUNS FAVORITOS/web/ALBUM4.webp" alt="Álbum 4">
+                    <h4>Abbey Road</h4><p>The Beatles</p>
+                </div>
+                <div class="card-base album-card">
+                    <div class="tape" style="transform: rotate(-12deg);"></div>
+                    <img src="sites html/IMAGENS/ÁLBUNS FAVORITOS/web/ALBUM5.webp" alt="Álbum 5">
+                    <h4>Currents</h4><p>Tame Impala</p>
+                </div>
+                <div class="card-base album-card">
+                    <div class="tape" style="transform: rotate(4deg);"></div>
+                    <img src="sites html/IMAGENS/ÁLBUNS FAVORITOS/web/ALBUM6.webp" alt="Álbum 6">
+                    <h4>OK Computer</h4><p>Radiohead</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hobbies -->
+        <section class="secao-margem">
+            <h3 class="secao-titulo">Meus Hobbies</h3>
+            <div class="grid-padrao">
+                <div class="card-base hobby-card" style="background: rgba(139, 42, 50, 0.1); transform: translateY(10px);">
+                    <div class="tape" style="transform: rotate(15deg);"></div>
+                    <h4>Jogar Video Games</h4>
+                    <p>Graças ao Thiago, ganhei muito gosto por jogar. Gosto muito de jogos nostálgicos, plataforma, corrida, cozy games...e meu jogo favorito é Super Mario Galaxy, um clássico.</p>
+                </div>
+                <div class="card-base hobby-card" style="background: rgba(139, 42, 50, 0.1); transform: translateY(-5px);">
+                    <div class="tape" style="transform: rotate(-5deg);"></div>
+                    <h4>Ouvir música</h4>
+                    <p>Eu amo ouvir música. Meu gosto musical é bem variado, mas geralmente gira em torno de indie, pop, rock, shoegaze, r&b, dance e algo mais alternativo. Costumo escutar música quase o tempo todo.</p>
+                </div>
+                <div class="card-base hobby-card" style="background: rgba(139, 42, 50, 0.1); transform: translateY(15px);">
+                    <div class="tape" style="transform: rotate(8deg);"></div>
+                    <h4>Desenhar</h4>
+                    <p>Desenhar é meu principal hobby e também minha maior paixão. Trabalho principalmente com arte digital e fiz aulas na Pandora de 2022 a 2026, onde evoluí bastante minhas técnicas.</p>
+                </div>
+            </div>
+        </section>
+
+
+      </div>
+    </div>
+
+    <div id="modal-fun-facts" class="modal-window hidden">
+      <div class="section-object obj-chico" aria-hidden="true">
+        <img src="assets/web/CHICO.webp" alt="" class="base-img">
+      </div>
+      <button class="close-modal">&times;</button>
+      <div class="modal-content" style="position: relative;">
+        <h2>Fun Facts</h2>
+        <img src="imagens/web/ADESIVO SORRISO.webp" alt="Sorrindo" class="adesivo-decor" style="top: 439px; left: 645px; --hue: 330deg; --rot: 30deg;">
+        <img src="imagens/web/ADESIVO SORRISO.webp" alt="Sorrindo" class="adesivo-decor" style="top: 177px; left: 187px; --hue: 180deg; --rot: -20deg;">
+        <img src="imagens/web/ADESIVO ESTRELA.webp" alt="Estrela" class="adesivo-decor" style="top: 72px; left: 468px; --hue: 0deg; --rot: 15deg;">
+        <img src="imagens/web/ADESIVO ESTRELA.webp" alt="Estrela" class="adesivo-decor" style="top: 427px; left: -31px; --hue: 250deg; --rot: -15deg;">
+        <img src="imagens/web/ADESIVO ESTRELA.webp" alt="Estrela" class="adesivo-decor" style="top: 367px; left: 415px; --hue: 50deg; --rot: -5deg;">
+        <img src="imagens/web/ADESIVO MORANGO.webp" alt="Morango" class="adesivo-decor" style="top: 75px; left: -30px; --rot: -10deg;">
+        <div class="grid-padrao">
+            <div class="card-base hobby-card" style="background: rgba(139, 42, 50, 0.1); transform: translateY(5px);">
+                <div class="tape" style="transform: rotate(-3deg);"></div>
+                <h4>Curiosidades</h4>
+                <p>Tenho 1,78m de altura, sou vegetariana desde 2020 porque amo os animais, minha cor favorita é verde e adoro explorar ideias e referências para tudo na minha vida, desde o Design e Ilustrações, até o meu próprio cabelo.</p>
+            </div>
+            <div class="card-base hobby-card" style="background: rgba(139, 42, 50, 0.1); transform: translateY(-5px);">
+                <div class="tape" style="transform: rotate(5deg);"></div>
+                <h4>Pets & Jogos</h4>
+                <p>Tenho quatro gatos: Fred, Bulacha, Franchesco e Chiquinho, e um cachorro chamado Yuki. No tempo livre gosto de jogar, principalmente Mario Kart Wii.</p>
+            </div>
+            <div class="card-base hobby-card" style="background: rgba(139, 42, 50, 0.1); transform: translateY(10px);">
+                <div class="tape" style="transform: rotate(-8deg);"></div>
+                <h4>Amor</h4>
+                <p>Namoro o Thiago (que conheci na faculdade), e gostamos muito de jogar juntos e desenvolver ideias legais e malucas! Trabalhamos muito bem juntos, e nos ajudamos muito a desenvolver ou aprimorar ideias através da nossa mente curiosa e exploradora da tecnologia.</p>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lightbox Modal para Artes -->
+    <div id="lightbox" class="hidden">
+      <button class="close-lightbox" id="closeLightbox" aria-label="Fechar">&times;</button>
+      <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Arte anterior">&#8249;</button>
+      <img src="" alt="Arte Ampliada" id="lightbox-img">
+      <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Próxima arte">&#8250;</button>
+      <span class="lightbox-counter" id="lightboxCounter" aria-live="polite"></span>
+    </div>
+
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/SplitText.min.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>

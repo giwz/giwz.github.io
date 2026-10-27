@@ -55,6 +55,10 @@ document.addEventListener('DOMContentLoaded', () => {
       activeModal.classList.add('hidden');
       modalOverlay.classList.add('hidden');
       activeModal = null;
+      // No desktop a mesa é fixa: ao fechar, a página volta ao topo e o foco sai do botão que sumiu
+      // (senão o navegador pode rolar a página e a mesa sai do lugar)
+      document.activeElement?.blur();
+      if (!isMobileQuery()) window.scrollTo(0, 0);
     }
   };
 
